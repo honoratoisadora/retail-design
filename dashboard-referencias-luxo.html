@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio — Referências de Design & Luxo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --ink: #1A1714;
+    --warm-mid: #8C7B6B;
+    --accent: #C4A882;
+    --accent-light: #E8DDD0;
+    --rule: rgba(26,23,20,0.12);
+    --card-bg: rgba(255,255,255,0.6);
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-display);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(196,168,130,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(196,168,130,0.1) 0%, transparent 50%);
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* LAYOUT */
+  .shell {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  /* HEADER */
+  header {
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 3rem;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .logo-area {}
+  .logo-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    margin-bottom: 0.5rem;
+  }
+  .logo-title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .logo-title em {
+    font-style: italic;
+    color: var(--warm-mid);
+  }
+
+  .header-meta {
+    text-align: right;
+  }
+  .date-display {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--warm-mid);
+    letter-spacing: 0.1em;
+  }
+  .date-display span {
+    display: block;
+    font-size: 20px;
+    font-family: var(--font-display);
+    font-weight: 300;
+    color: var(--ink);
+    letter-spacing: 0;
+    margin-top: 4px;
+  }
+
+  /* NAV TABS */
+  nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 3rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+
+  .nav-tab {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    padding: 0.75rem 1.5rem 0.75rem 0;
+    cursor: pointer;
+    border: none;
+    background: none;
+    white-space: nowrap;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 1.5rem;
+    height: 1px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .nav-tab.active { color: var(--ink); }
+  .nav-tab.active::after { transform: scaleX(1); }
+  .nav-tab:hover { color: var(--ink); }
+
+  /* SECTIONS */
+  .section { display: none; animation: fadeIn 0.3s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTION HEADER */
+  .section-intro {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-title {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 300;
+    line-height: 1.2;
+  }
+  .section-title em { font-style: italic; color: var(--warm-mid); }
+  .section-desc {
+    max-width: 38ch;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--warm-mid);
+    font-weight: 300;
+  }
+
+  /* GRID LAYOUTS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
+  .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5px; }
+
+  /* CARDS */
+  .card {
+    background: var(--card-bg);
+    backdrop-filter: blur(4px);
+    padding: 1.5rem;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .card:hover { background: rgba(255,255,255,0.85); }
+  .card:hover::before { transform: scaleX(1); }
+
+  .card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .card-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .card-name {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+  .card-sub {
+    font-size: 12px;
+    color: var(--warm-mid);
+    font-family: var(--font-mono);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .card-desc {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #4A3F35;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+  .card-use {
+    border-top: 1px solid var(--rule);
+    padding-top: 0.75rem;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--warm-mid);
+    font-style: italic;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-top: 1rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .card-link:hover { color: var(--accent); border-color: var(--accent); }
+  .card-link::after { content: '→'; }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    color: var(--warm-mid);
+    margin-bottom: 0.75rem;
+  }
+  .badge.highlight { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+  /* DIVIDER LABEL */
+  .divider-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2.5rem 0 1rem;
+  }
+  .divider-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    white-space: nowrap;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* ROTINA TIMELINE */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent), transparent);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+    background: var(--card-bg);
+    padding: 1.25rem 1.5rem;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem; top: 1.4rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--cream);
+  }
+  .timeline-freq {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .timeline-title { font-size: 16px; font-weight: 400; margin-bottom: 0.4rem; }
+  .timeline-desc { font-size: 13px; line-height: 1.65; color: #4A3F35; font-weight: 300; }
+  .timeline-tip {
+    font-size: 12px;
+    font-style: italic;
+    color: var(--warm-mid);
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* MARCAS TABLE */
+  .brand-table { width: 100%; border-collapse: collapse; }
+  .brand-table th {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    text-align: left;
+    padding: 0.5rem 1rem 0.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .brand-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--rule);
+    font-size: 13px;
+    line-height: 1.5;
+    vertical-align: top;
+  }
+  .brand-table tr:hover td { background: rgba(255,255,255,0.5); }
+  .brand-name-cell { font-size: 15px; font-weight: 400; }
+  .brand-origin-cell { font-family: var(--font-mono); font-size: 10px; color: var(--warm-mid); margin-top: 2px; letter-spacing: 0.05em; }
+
+  /* NEWSLETTER LIST */
+  .nl-list { display: flex; flex-direction: column; gap: 1.5px; }
+  .nl-item {
+    background: var(--card-bg);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    transition: background 0.2s;
+  }
+  .nl-item:hover { background: rgba(255,255,255,0.85); }
+  .nl-number {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    padding-top: 3px;
+    flex-shrink: 0;
+    width: 24px;
+  }
+  .nl-body { flex: 1; }
+  .nl-name { font-size: 16px; font-weight: 400; margin-bottom: 3px; }
+  .nl-url { font-family: var(--font-mono); font-size: 10px; color: var(--warm-mid); letter-spacing: 0.05em; margin-bottom: 6px; }
+  .nl-desc { font-size: 13px; line-height: 1.6; color: #4A3F35; font-weight: 300; }
+  .nl-freq { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-top: 6px; }
+  .nl-cta { flex-shrink: 0; align-self: center; }
+
+  /* IG GRID */
+  .ig-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5px; }
+  .ig-card {
+    background: var(--card-bg);
+    padding: 1.25rem;
+    transition: background 0.2s;
+  }
+  .ig-card:hover { background: rgba(255,255,255,0.85); }
+  .ig-handle {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    margin-bottom: 4px;
+  }
+  .ig-cat { font-size: 11px; color: var(--warm-mid); margin-bottom: 6px; }
+  .ig-desc { font-size: 12px; line-height: 1.5; color: #4A3F35; font-weight: 300; }
+  .ig-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ig-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    margin-top: 5rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--warm-mid);
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 768px) {
+    .shell { padding: 0 1.25rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .header-meta { text-align: left; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .section-intro { flex-direction: column; }
+    .nav-tab { padding: 0.75rem 1rem 0.75rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-area">
+        <p class="logo-eyebrow">Dashboard pessoal</p>
+        <h1 class="logo-title">Referências de<br><em>Design & Luxo</em></h1>
+      </div>
+      <div class="header-meta">
+        <p class="date-display">
+          Acesso diário
+          <span id="current-date">—</span>
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <button class="nav-tab active" onclick="showSection('rotina', this)">Rotina diária</button>
+    <button class="nav-tab" onclick="showSection('sites', this)">Sites & Blogs</button>
+    <button class="nav-tab" onclick="showSection('retail', this)">Retail Design</button>
+    <button class="nav-tab" onclick="showSection('newsletters', this)">Newsletters</button>
+    <button class="nav-tab" onclick="showSection('instagram', this)">Instagram</button>
+    <button class="nav-tab" onclick="showSection('revestimentos', this)">Revestimentos</button>
+    <button class="nav-tab" onclick="showSection('marcas', this)">Marcas de Luxo</button>
+    <button class="nav-tab" onclick="showSection('feiras', this)">Feiras</button>
+  </nav>
+
+  <!-- ====== ROTINA ====== -->
+  <div class="section active" id="rotina">
+    <div class="section-intro">
+      <h2 class="section-title">Rotina de<br><em>atualização</em></h2>
+      <p class="section-desc">15 minutos por dia constroem muito mais repertório do que 4 horas num domingo isolado. Comece pelo mínimo e vá adicionando.</p>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Manhã</span><div class="divider-line"></div></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <p class="timeline-freq">Diário — 5 min — No transporte ou café</p>
+        <h3 class="timeline-title">Feed de Favoritos no Instagram</h3>
+        <p class="timeline-desc">Abra o Instagram e role só as contas de design na lista de Favoritos. Não misture com amigos — crie uma lista fechada com as contas da aba Instagram deste dashboard.</p>
+        <p class="timeline-tip">Como criar: entre no perfil de uma conta → "Seguindo" → "Adicionar aos Favoritos". Acesse em Home → setinha do logo → Favoritos.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-freq">Diário — 10 min — Antes de começar o trabalho</p>
+        <h3 class="timeline-title">Inbox de newsletters</h3>
+        <p class="timeline-desc">Crie uma pasta "Design" no Gmail e filtre todas as newsletters para ela. Toda manhã: abra a pasta, leia os assuntos, clique só no que for realmente relevante. A curadoria já é o exercício.</p>
+        <p class="timeline-tip">Prioridade: Dezeen Daily, Business of Home, Retail Design Blog.</p>
+      </div>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Almoço — 3× por semana</span><div class="divider-line"></div></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <p class="timeline-freq">Segunda — 15 min</p>
+        <h3 class="timeline-title">Retail design — Dezeen ou Retail Design Blog</h3>
+        <p class="timeline-desc">Escolha um projeto de loja publicado na semana. Leia com atenção: materiais, conceito, fluxo, quem assinou. Salve no Pinterest na pasta "Retail Ref".</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-freq">Quarta — 15 min</p>
+        <h3 class="timeline-title">Mobiliário e interiores — Sight Unseen ou Yellowtrace</h3>
+        <p class="timeline-desc">Um projeto de interiores ou lançamento de mobiliário. Foco: qual é o vocabulário de materiais? Quais peças de mobiliário aparecem? Salve referências.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-freq">Sexta — 15 min</p>
+        <h3 class="timeline-title">Luxo e tendência — Wallpaper* ou Business of Home</h3>
+        <p class="timeline-desc">Um artigo de tendência ou projeto de luxo. Sexta é boa para absorver e pensar no fim de semana.</p>
+      </div>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Noite — construção de repertório</span><div class="divider-line"></div></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <p class="timeline-freq">2× por semana — 20–30 min</p>
+        <h3 class="timeline-title">Pinterest — organize o que coletou</h3>
+        <p class="timeline-desc">Painéis: "Retail Luxo", "Revestimentos Referência", "Mobiliário Autoral", "Conceitos de Marca", "Paletas e Materiais". Salvar sem organizar não constrói repertório — a organização é que fixa.</p>
+        <p class="timeline-tip">Escreva uma frase curta no comentário do pin explicando por que salvou. Isso acelera o processamento.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-freq">1× por semana — 20 min — Academia ou jantar</p>
+        <h3 class="timeline-title">Podcast — Desígnios (PT) ou Material Matters (EN)</h3>
+        <p class="timeline-desc">Um episódio por semana já é consistência. Podcast é para absorver vocabulário e mentalidade do setor. Ouça enquanto cozinha, malha ou anda.</p>
+      </div>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Semanal & Mensal</span><div class="divider-line"></div></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <p class="timeline-freq">Todo domingo — 30 min</p>
+        <h3 class="timeline-title">Visita presencial com olho técnico</h3>
+        <p class="timeline-desc">Escolha uma loja de alto padrão no Rio e vá como pesquisadora. Village Mall, Ipanema, Leblon, Shopping Leblon, Iguatemi. Leve o celular. Fotografe o que puder. Escreva 3 observações no Notes.</p>
+        <p class="timeline-tip">Esta é a prática mais valiosa de todas. Nenhum site substitui o espaço físico.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-freq">1× por mês — um sábado à tarde</p>
+        <h3 class="timeline-title">Mergulho profundo — uma marca, fundo total</h3>
+        <p class="timeline-desc">Escolha uma marca de luxo. Veja todos os projetos de loja que encontrar. Leia a história. Pesquise os arquitetos. Entenda o DNA espacial. Isso vira material para o portfólio e para entrevistas.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SITES ====== -->
+  <div class="section" id="sites">
+    <div class="section-intro">
+      <h2 class="section-title">Sites &<br><em>Blogs</em></h2>
+      <p class="section-desc">Fontes com ponto de vista editorial — curadoria de qualidade em interiores, revestimentos e mobiliário.</p>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Internacionais — essenciais</span><div class="divider-line"></div></div>
+    <div class="grid-2">
+      <div class="card">
+        <p class="card-eyebrow">Londres · Reino Unido</p>
+        <h3 class="card-name">Dezeen</h3>
+        <p class="card-sub">dezeen.com/interiors</p>
+        <span class="badge highlight">Leitura diária</span>
+        <p class="card-desc">O mais influente do mundo em design. Curadoria editorial rigorosa — escolhem o que importa, não publicam tudo. Cobre varejo, restaurantes, hotéis e residências com o mesmo nível.</p>
+        <p class="card-use">Filtre por "retail" para focar em varejo. Cobertura do Salone del Mobile em abril é imperdível.</p>
+        <a href="https://www.dezeen.com/interiors" target="_blank" class="card-link">Acessar</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Londres · Reino Unido</p>
+        <h3 class="card-name">Wallpaper*</h3>
+        <p class="card-sub">wallpaper.com</p>
+        <span class="badge highlight">Leitura diária</span>
+        <p class="card-desc">Referência máxima no universo de luxo. Une arquitetura, interiores, moda e arte com ponto de vista editorial próprio. Quem trabalha com luxo precisa ler Wallpaper*.</p>
+        <p class="card-use">Cobertura ao vivo do Salone e Maison & Objet em tempo real.</p>
+        <a href="https://www.wallpaper.com" target="_blank" class="card-link">Acessar</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Nova York · EUA</p>
+        <h3 class="card-name">Sight Unseen</h3>
+        <p class="card-sub">sightunseen.com</p>
+        <span class="badge">Mobiliário emergente</span>
+        <p class="card-desc">Plataforma editorial independente especializada em design emergente. Conhecida por descobrir talentos e tendências antes de todo mundo — o que aparece aqui chega nas lojas de luxo 2 anos depois.</p>
+        <p class="card-use">Acompanhe o "American Design Hot List" anual.</p>
+        <a href="https://www.sightunseen.com" target="_blank" class="card-link">Acessar</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Sydney · Austrália</p>
+        <h3 class="card-name">Yellowtrace</h3>
+        <p class="card-sub">yellowtrace.com.au</p>
+        <span class="badge">Interiores & Hospitality</span>
+        <p class="card-desc">Blog com curadoria excelente de projetos de interiores e hospitality. Tom editorial humano e opinativo. Ótimo para varejo e restaurantes de alto padrão.</p>
+        <p class="card-use">Seção "Products" descobre marcas antes de chegarem ao Brasil.</p>
+        <a href="https://www.yellowtrace.com.au" target="_blank" class="card-link">Acessar</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Nova York · EUA</p>
+        <h3 class="card-name">Surface Magazine</h3>
+        <p class="card-sub">surfacemag.com</p>
+        <span class="badge">Materiais & Superfícies</span>
+        <p class="card-desc">O mais específico em materiais, superfícies e interiores de luxo. Cobre lançamentos de revestimentos, pedras, metais e têxteis com profundidade editorial.</p>
+        <p class="card-use">Explore a seção "Materials" para ficar por dentro antes dos distribuidores brasileiros importarem.</p>
+        <a href="https://www.surfacemag.com" target="_blank" class="card-link">Acessar</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Reino Unido</p>
+        <h3 class="card-name">The World of Interiors</h3>
+        <p class="card-sub">worldofinteriors.co.uk</p>
+        <span class="badge">Luxo atemporal</span>
+        <p class="card-desc">Para quem se inspira em luxo histórico e elegância sem prazo de validade. Patrimônio, antiguidades e projetos de alto padrão com uma estética quase editorial de moda.</p>
+        <p class="card-use">Use para desenvolver repertório de referências históricas — fundamental para conceitos de marcas de luxo.</p>
+        <a href="https://www.worldofinteriors.co.uk" target="_blank" class="card-link">Acessar</a>
+      </div>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Brasileiros</span><div class="divider-line"></div></div>
+    <div class="grid-2">
+      <div class="card">
+        <p class="card-eyebrow">Brasil</p>
+        <h3 class="card-name">Casa Vogue Brasil</h3>
+        <p class="card-sub">casavogue.globo.com</p>
+        <span class="badge highlight">Leitura semanal</span>
+        <p class="card-desc">A publicação de interiores de mais alto nível no Brasil. Cobre os principais arquitetos e designers do país com foco em processo e projeto. O podcast Desígnios é excelente.</p>
+        <a href="https://casavogue.globo.com" target="_blank" class="card-link">Acessar</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Brasil</p>
+        <h3 class="card-name">Archtrends — Portobello</h3>
+        <p class="card-sub">blog.archtrends.com</p>
+        <span class="badge">Trendbook anual gratuito</span>
+        <p class="card-desc">A maior fonte de tendências de revestimentos do Brasil. O Trendbook anual é uma das melhores referências de tendência do mercado brasileiro. Baixe todo início de ano.</p>
+        <a href="https://blog.archtrends.com" target="_blank" class="card-link">Acessar</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Brasil</p>
+        <h3 class="card-name">AD Brasil</h3>
+        <p class="card-sub">adbrasil.com.br</p>
+        <span class="badge">Interiores luxo</span>
+        <p class="card-desc">Edição brasileira da Architectural Digest. Curadoria de qualidade e projetos de interiores de alto padrão com foco em residências e designers renomados.</p>
+        <a href="https://adbrasil.com.br" target="_blank" class="card-link">Acessar</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">EUA · diário</p>
+        <h3 class="card-name">Design Milk</h3>
+        <p class="card-sub">design-milk.com</p>
+        <span class="badge">Produto & Mobiliário</span>
+        <p class="card-desc">Atualização diária de produto, mobiliário e interiores modernos. Ideal para consumo rápido — 10 minutos por dia. Bom para varredura rápida de lançamentos de mobiliário.</p>
+        <a href="https://design-milk.com" target="_blank" class="card-link">Acessar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== RETAIL DESIGN ====== -->
+  <div class="section" id="retail">
+    <div class="section-intro">
+      <h2 class="section-title">Retail<br><em>Design</em></h2>
+      <p class="section-desc">Fontes dedicadas exclusivamente a projetos de lojas, visual merchandising e design de varejo.</p>
+    </div>
+
+    <div class="grid-auto">
+      <div class="card">
+        <span class="badge highlight">Foco total em retail</span>
+        <h3 class="card-name">Retail Design Blog</h3>
+        <p class="card-sub">retaildesignblog.net</p>
+        <p class="card-desc">O único site dedicado exclusivamente a projetos de design de varejo. Publica lojas de todo o mundo — de farmácia conceitual a flagship de luxo.</p>
+        <p class="card-use">Filtre por "luxury", "fashion" ou "jewelry". Salve os que tiverem crédito de escritório — pesquise depois quem são.</p>
+        <a href="https://retaildesignblog.net" target="_blank" class="card-link">Acessar</a>
+      </div>
+      <div class="card">
+        <span class="badge highlight">Editorial de qualidade</span>
+        <h3 class="card-name">Dezeen — Retail</h3>
+        <p class="card-sub">dezeen.com/tag/retail-tag</p>
+        <p class="card-desc">A curadoria de retail do Dezeen é a mais qualificada — publicam só o que tem relevância de projeto real. Cada post tem contexto, crédito e análise do conceito.</p>
+        <p class="card-use">Salve este link nos favoritos. Cheque 2× por semana. Quando publicarem flagship de luxo, leia com atenção aos materiais citados.</p>
+        <a href="https://www.dezeen.com/tag/retail-tag" target="_blank" class="card-link">Acessar</a>
+      </div>
+      <div class="card">
+        <span class="badge">VM + Store Design</span>
+        <h3 class="card-name">VMSD Magazine</h3>
+        <p class="card-sub">vmsd.com</p>
+        <p class="card-desc">A publicação mais antiga e respeitada do setor de VM e store design nos EUA. Cobre projetos, tendências de VM, materiais de display e premiações anuais.</p>
+        <p class="card-use">Une VM (sua pós) com arquitetura de varejo. Os "Store Design Awards" anuais são um banco de referências excelente.</p>
+        <a href="https://vmsd.com" target="_blank" class="card-link">Acessar</a>
+      </div>
+      <div class="card">
+        <span class="badge">Negócios do varejo</span>
+        <h3 class="card-name">Inside Retail</h3>
+        <p class="card-sub">insideretail.com.au</p>
+        <p class="card-desc">Cobre varejo pelo ângulo de negócios e experiência do cliente. Ótimo para entender por que marcas tomam decisões de espaço e quais tendências de comportamento impactam o projeto.</p>
+        <p class="card-use">Entender o negócio do varejo diferencia arquitetas que "entregam projeto" das que "entendem o cliente".</p>
+        <a href="https://insideretail.com.au" target="_blank" class="card-link">Acessar</a>
+      </div>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Podcasts</span><div class="divider-line"></div></div>
+    <div class="grid-2">
+      <div class="card">
+        <p class="card-eyebrow">Português · Casa Vogue</p>
+        <h3 class="card-name">Desígnios</h3>
+        <p class="card-sub">Spotify / Apple Podcasts</p>
+        <span class="badge highlight">1× por semana</span>
+        <p class="card-desc">O melhor podcast de design de interiores em português. Entrevistas com os principais arquitetos e designers do Brasil. Tom sofisticado, alinhado com o universo de alto padrão.</p>
+        <p class="card-use">Ótimo para absorver o vocabulário e as referências que os profissionais do setor usam nas conversas.</p>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Inglês · Glenn Adamson</p>
+        <h3 class="card-name">Material Matters</h3>
+        <p class="card-sub">Spotify / Apple Podcasts</p>
+        <span class="badge">Materiais em profundidade</span>
+        <p class="card-desc">O curador Glenn Adamson entrevista designers sobre sua relação com materiais específicos. Pedra, couro, madeira, cerâmica — cada episódio aprofunda um material com quem o usa de forma autoral.</p>
+        <p class="card-use">Entender a cultura de um material é o que diferencia um projeto de varejo de luxo de um projeto comum.</p>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Inglês · Textures Flooring</p>
+        <h3 class="card-name">Couture & Construction</h3>
+        <p class="card-sub">Spotify / Apple Podcasts</p>
+        <span class="badge">Luxo construtivo</span>
+        <p class="card-desc">Foca no lado luxo da construção — histórias de designers, arquitetos e construtores sobre os bastidores de espaços sofisticados. Muito próximo da sua realidade de gerenciamento + projeto.</p>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Inglês · AHEC</p>
+        <h3 class="card-name">Words on Wood</h3>
+        <p class="card-sub">Spotify / Apple Podcasts</p>
+        <span class="badge">Madeira & materiais</span>
+        <p class="card-desc">Conversas interdisciplinares com designers sobre madeira e materiais naturais. Convidados como Ronan Bouroullec e Sam Hecht. Episódios curtos (30–40 min), densos e excelentes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== NEWSLETTERS ====== -->
+  <div class="section" id="newsletters">
+    <div class="section-intro">
+      <h2 class="section-title">News&shy;letters<br><em>para assinar</em></h2>
+      <p class="section-desc">Filtre todas para uma pasta "Design" no Gmail. Toda manhã: leia os assuntos, abra só o que chamar atenção.</p>
+    </div>
+
+    <div class="nl-list">
+      <div class="nl-item">
+        <span class="nl-number">01</span>
+        <div class="nl-body">
+          <h3 class="nl-name">Dezeen Daily</h3>
+          <p class="nl-url">dezeen.com/newsletters</p>
+          <p class="nl-desc">Os 5 projetos mais importantes do dia em arquitetura, interiores e design. Curadoria editorial diária — o mínimo essencial.</p>
+          <p class="nl-freq">Diária — 2 min de leitura</p>
+        </div>
+        <div class="nl-cta"><a href="https://www.dezeen.com/newsletters" target="_blank" class="card-link">Assinar</a></div>
+      </div>
+      <div class="nl-item">
+        <span class="nl-number">02</span>
+        <div class="nl-body">
+          <h3 class="nl-name">Business of Home — Design Daily</h3>
+          <p class="nl-url">businessofhome.com/subscriptions</p>
+          <p class="nl-desc">A voz de autoridade para profissionais de design de interiores. Cobre tendências de mercado, negócios do setor e projetos de referência.</p>
+          <p class="nl-freq">Diária — 5 min de leitura</p>
+        </div>
+        <div class="nl-cta"><a href="https://businessofhome.com/subscriptions" target="_blank" class="card-link">Assinar</a></div>
+      </div>
+      <div class="nl-item">
+        <span class="nl-number">03</span>
+        <div class="nl-body">
+          <h3 class="nl-name">Retail Design Blog Newsletter</h3>
+          <p class="nl-url">retaildesignblog.net</p>
+          <p class="nl-desc">Focada exclusivamente em projetos de design de varejo globais. A fonte mais direta para retail design — lojas de luxo, flagship stores, pop-ups.</p>
+          <p class="nl-freq">Semanal — 10 min de leitura</p>
+        </div>
+        <div class="nl-cta"><a href="https://retaildesignblog.net" target="_blank" class="card-link">Assinar</a></div>
+      </div>
+      <div class="nl-item">
+        <span class="nl-number">04</span>
+        <div class="nl-body">
+          <h3 class="nl-name">Wallpaper* Newsletter</h3>
+          <p class="nl-url">wallpaper.com</p>
+          <p class="nl-desc">Os destaques da semana em design, interiores e luxo. Mais curta e curada — boa para luxo específico.</p>
+          <p class="nl-freq">Semanal — 5 min de leitura</p>
+        </div>
+        <div class="nl-cta"><a href="https://www.wallpaper.com" target="_blank" class="card-link">Assinar</a></div>
+      </div>
+      <div class="nl-item">
+        <span class="nl-number">05</span>
+        <div class="nl-body">
+          <h3 class="nl-name">Archtrends — Portobello</h3>
+          <p class="nl-url">blog.archtrends.com</p>
+          <p class="nl-desc">Tendências de revestimentos com foco no mercado brasileiro. O Trendbook anual gratuito é o ponto alto — vale assinar só por isso.</p>
+          <p class="nl-freq">Semanal — 5 min de leitura</p>
+        </div>
+        <div class="nl-cta"><a href="https://blog.archtrends.com" target="_blank" class="card-link">Assinar</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== INSTAGRAM ====== -->
+  <div class="section" id="instagram">
+    <div class="section-intro">
+      <h2 class="section-title">Instagram<br><em>Favoritos</em></h2>
+      <p class="section-desc">Adicione todos aos Favoritos no Instagram para ter um feed curado sem algoritmo. Perfil → Seguindo → Adicionar aos Favoritos.</p>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Editorial — interiores e design</span><div class="divider-line"></div></div>
+    <div class="ig-grid">
+      <div class="ig-card">
+        <p class="ig-handle">@dezeen</p>
+        <p class="ig-cat">Editorial global</p>
+        <p class="ig-desc">Extensão do site. Projetos selecionados de arquitetura, interiores e design diariamente.</p>
+        <a href="https://instagram.com/dezeen" target="_blank" class="ig-link">Seguir</a>
+      </div>
+      <div class="ig-card">
+        <p class="ig-handle">@wallpapermag</p>
+        <p class="ig-cat">Luxo e interiores</p>
+        <p class="ig-desc">Curadoria de alto nível em design, interiores, arquitetura e lifestyle de luxo.</p>
+        <a href="https://instagram.com/wallpapermag" target="_blank" class="ig-link">Seguir</a>
+      </div>
+      <div class="ig-card">
+        <p class="ig-handle">@sightunseen</p>
+        <p class="ig-cat">Mobiliário autoral</p>
+        <p class="ig-desc">Design independente e emergente. Descobre talentos antes de virarem referência mainstream.</p>
+        <a href="https://instagram.com/sightunseen" target="_blank" class="ig-link">Seguir</a>
+      </div>
+      <div class="ig-card">
+        <p class="ig-handle">@yellowtrace_</p>
+        <p class="ig-cat">Interiores e hospitality</p>
+        <p class="ig-desc">Curadoria editorial de projetos de interiores com tom humano e opinativo.</p>
+        <a href="https://instagram.com/yellowtrace_" target="_blank" class="ig-link">Seguir</a>
+      </div>
+      <div class="ig-card">
+        <p class="ig-handle">@casavogue</p>
+        <p class="ig-cat">Brasil — alto padrão</p>
+        <p class="ig-desc">Projetos de escritórios brasileiros de referência que não aparecem em sites internacionais.</p>
+        <a href="https://instagram.com/casavogue" target="_blank" class="ig-link">Seguir</a>
+      </div>
+      <div class="ig-card">
+        <p class="ig-handle">@1stdibs</p>
+        <p class="ig-cat">Mobiliário colecionável</p>
+        <p class="ig-desc">Curadoria diária de mobiliário vintage e colecionável de alto padrão. Construção de repertório.</p>
+        <a href="https://instagram.com/1stdibs" target="_blank" class="ig-link">Seguir</a>
+      </div>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Retail design</span><div class="divider-line"></div></div>
+    <div class="ig-grid">
+      <div class="ig-card">
+        <p class="ig-handle">@retaildesignblog</p>
+        <p class="ig-cat">Projetos de lojas</p>
+        <p class="ig-desc">Projetos de varejo de todo o mundo. Foco direto em store design e visual merchandising.</p>
+        <a href="https://instagram.com/retaildesignblog" target="_blank" class="ig-link">Seguir</a>
+      </div>
+      <div class="ig-card">
+        <p class="ig-handle">@businessofhome</p>
+        <p class="ig-cat">Mercado de interiores</p>
+        <p class="ig-desc">Tendências de mercado e negócios do setor de design de interiores e varejo.</p>
+        <a href="https://instagram.com/businessofhome" target="_blank" class="ig-link">Seguir</a>
+      </div>
+      <div class="ig-card">
+        <p class="ig-handle">@vmsd_magazine</p>
+        <p class="ig-cat">VM + Store Design</p>
+        <p class="ig-desc">Visual merchandising e design de loja com olhar editorial americano. Awards anuais.</p>
+        <a href="https://instagram.com/vmsd_magazine" target="_blank" class="ig-link">Seguir</a>
+      </div>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Revestimentos — fabricantes italianos</span><div class="divider-line"></div></div>
+    <div class="ig-grid">
+      <div class="ig-card">
+        <p class="ig-handle">@mutina_ceramiche</p>
+        <p class="ig-cat">Cerâmica autoral</p>
+        <p class="ig-desc">O mais autoral do mundo. Colaborações com Bouroullec, Urquiola, Anastassiades. O que lançam chega ao Brasil em 1–2 anos.</p>
+        <a href="https://instagram.com/mutina_ceramiche" target="_blank" class="ig-link">Seguir</a>
+      </div>
+      <div class="ig-card">
+        <p class="ig-handle">@rexceramica</p>
+        <p class="ig-cat">Premium contract</p>
+        <p class="ig-desc">Revestimentos italianos para aplicações de luxo — retail e hospitality de alto padrão.</p>
+        <a href="https://instagram.com/rexceramica" target="_blank" class="ig-link">Seguir</a>
+      </div>
+      <div class="ig-card">
+        <p class="ig-handle">@salvatoriofficial</p>
+        <p class="ig-cat">Pedra natural design</p>
+        <p class="ig-desc">A referência máxima em pedra natural com abordagem de design. Mármore de Carrara com acabamentos únicos.</p>
+        <a href="https://instagram.com/salvatoriofficial" target="_blank" class="ig-link">Seguir</a>
+      </div>
+      <div class="ig-card">
+        <p class="ig-handle">@atlasconcorde</p>
+        <p class="ig-cat">Premium global</p>
+        <p class="ig-desc">Um dos mais especificados mundialmente em projetos residenciais e comerciais de alto padrão.</p>
+        <a href="https://instagram.com/atlasconcorde" target="_blank" class="ig-link">Seguir</a>
+      </div>
+      <div class="ig-card">
+        <p class="ig-handle">@laminam_official</p>
+        <p class="ig-cat">Grandes formatos</p>
+        <p class="ig-desc">Placas ultra-finas até 160×320cm. Superfícies contínuas sem junta. Muito usado em projetos minimalistas de luxo.</p>
+        <a href="https://instagram.com/laminam_official" target="_blank" class="ig-link">Seguir</a>
+      </div>
+      <div class="ig-card">
+        <p class="ig-handle">@porcelanosa_grupo</p>
+        <p class="ig-cat">Premium espanhol</p>
+        <p class="ig-desc">A maior referência espanhola em revestimentos premium. 970+ showrooms globais. O "Portobello europeu".</p>
+        <a href="https://instagram.com/porcelanosa_grupo" target="_blank" class="ig-link">Seguir</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== REVESTIMENTOS ====== -->
+  <div class="section" id="revestimentos">
+    <div class="section-intro">
+      <h2 class="section-title">Marcas de<br><em>Revestimento</em></h2>
+      <p class="section-desc">O mapa internacional — do autoral ao técnico. Para especificar com autoridade em projetos de luxo.</p>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Cerâmica italiana — topo autoral</span><div class="divider-line"></div></div>
+    <table class="brand-table">
+      <thead><tr>
+        <th>Marca</th><th>Posicionamento</th><th>Onde usar</th><th>Site</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="brand-name-cell">Mutina</div><div class="brand-origin-cell">Fiorano Modenese, IT</div></td>
+          <td>Autoral máximo. Cada coleção assinada por designer mundial — Bouroullec, Urquiola, Anastassiades. Trata o azulejo como objeto de design.</td>
+          <td>Paredes de destaque em boutiques, fitting rooms de alto padrão. Quando o revestimento é o conceito do espaço.</td>
+          <td><a href="https://www.mutina.it" target="_blank" class="card-link">mutina.it</a></td>
+        </tr>
+        <tr>
+          <td><div class="brand-name-cell">Ceramica Bardelli</div><div class="brand-origin-cell">Como, IT — 1919</div></td>
+          <td>100+ anos com foco em cerâmica artística. Colaborações com artistas para coleções exclusivas.</td>
+          <td>Espaços com narrativa histórica forte, projetos que dialogam com arte e artesanato italiano.</td>
+          <td><a href="https://www.ceramicabardelli.it" target="_blank" class="card-link">ceramicabardelli.it</a></td>
+        </tr>
+        <tr>
+          <td><div class="brand-name-cell">Rex Ceramiche</div><div class="brand-origin-cell">Castellarano, IT — Florim</div></td>
+          <td>Premium contract. Excelente em reproduções de mármore em grande formato. Muito usado em hotéis e lojas de luxo europeias.</td>
+          <td>Pisos de flagships, áreas de grande circulação, lobbies de hotel 5 estrelas.</td>
+          <td><a href="https://www.rex-cerambiche.it" target="_blank" class="card-link">rex-ceramiche.it</a></td>
+        </tr>
+        <tr>
+          <td><div class="brand-name-cell">Atlas Concorde</div><div class="brand-origin-cell">Sassuolo, IT</div></td>
+          <td>Referência global. Catálogo amplo: pedra, madeira, concreto, têxtil. Alta qualidade técnica.</td>
+          <td>Versátil — residências premium a espaços comerciais. Boa relação sofisticação/especificação.</td>
+          <td><a href="https://www.atlasconcorde.com" target="_blank" class="card-link">atlasconcorde.com</a></td>
+        </tr>
+        <tr>
+          <td><div class="brand-name-cell">Lea Ceramiche</div><div class="brand-origin-cell">Sassuolo, IT</div></td>
+          <td>Especialista em pedras italianas: travertino, Pietra di Lessinia, Ceppo di Gré.</td>
+          <td>Projetos com referência à arquitetura italiana clássica. Lojas que querem evocar Roma ou Milão.</td>
+          <td><a href="https://www.leaceramica.com" target="_blank" class="card-link">leaceramica.com</a></td>
+        </tr>
+        <tr>
+          <td><div class="brand-name-cell">Laminam</div><div class="brand-origin-cell">Fiorano Modenese, IT</div></td>
+          <td>Placas ultra-finas até 160×320cm, 3mm espessura. Superfícies contínuas sem junta.</td>
+          <td>Projetos minimalistas de alto padrão que pedem superfícies contínuas ou revestimento de mobiliário.</td>
+          <td><a href="https://www.laminam.it" target="_blank" class="card-link">laminam.it</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="divider-row"><span class="divider-label">Pedra natural & superfícies técnicas</span><div class="divider-line"></div></div>
+    <table class="brand-table">
+      <thead><tr>
+        <th>Marca</th><th>Posicionamento</th><th>Onde usar</th><th>Site</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="brand-name-cell">Salvatori</div><div class="brand-origin-cell">Carrara, IT — 1946</div></td>
+          <td>Pedra natural com abordagem de design. Mármore de Carrara + colaborações com Piero Lissoni, David Chipperfield. Acabamentos únicos como Lithoverde.</td>
+          <td>Boutiques de joalheria e alta costura. O revestimento equivalente a especificar uma cadeira Cassina.</td>
+          <td><a href="https://www.salvatoriofficial.com" target="_blank" class="card-link">salvatoriofficial.com</a></td>
+        </tr>
+        <tr>
+          <td><div class="brand-name-cell">Margres</div><div class="brand-origin-cell">Portugal — Grupo Roca</div></td>
+          <td>Referência portuguesa premium. Muito especificada em projetos europeus contemporâneos e hospitality.</td>
+          <td>Alternativa às italianas. Relevante se você mirar no mercado lusófono — Portugal é porta de entrada para arquitetas brasileiras.</td>
+          <td><a href="https://www.margres.com" target="_blank" class="card-link">margres.com</a></td>
+        </tr>
+        <tr>
+          <td><div class="brand-name-cell">Dekton — Cosentino</div><div class="brand-origin-cell">Almería, Espanha</div></td>
+          <td>Ultracompacto. Mistura vidro, porcelana e quartzo. Extremamente resistente. Muito especificado em varejo de alto tráfego.</td>
+          <td>Balcões de atendimento, mesas de display, pisos de grande circulação. Beleza sem manutenção.</td>
+          <td><a href="https://www.cosentino.com/dekton" target="_blank" class="card-link">cosentino.com/dekton</a></td>
+        </tr>
+        <tr>
+          <td><div class="brand-name-cell">Silestone — Cosentino</div><div class="brand-origin-cell">Almería, Espanha</div></td>
+          <td>Quartzo engineered mais especificado do mundo. 93% quartzo natural. Líder global em cozinhas e banheiros premium.</td>
+          <td>Bancadas de fitting rooms, counters de atendimento, banheiros de lojas premium. Tem distribuição no Brasil.</td>
+          <td><a href="https://www.cosentino.com/silestone" target="_blank" class="card-link">cosentino.com/silestone</a></td>
+        </tr>
+        <tr>
+          <td><div class="brand-name-cell">Porcelanosa</div><div class="brand-origin-cell">Vila-Real, Espanha</div></td>
+          <td>Maior referência espanhola. 970+ showrooms globais. 8 marcas cobrindo residencial ao contract.</td>
+          <td>Projetos completos que precisam de coerência entre ambientes. O "Portobello europeu" — ampla gama, boa qualidade.</td>
+          <td><a href="https://www.porcelanosa.com" target="_blank" class="card-link">porcelanosa.com</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ====== MARCAS DE LUXO ====== -->
+  <div class="section" id="marcas">
+    <div class="section-intro">
+      <h2 class="section-title">Marcas para<br><em>estudar</em></h2>
+      <p class="section-desc">Candidatas ao projeto conceitual do portfólio — cada uma com DNA espacial distinto. Estude uma por mês.</p>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Brasileiras</span><div class="divider-line"></div></div>
+    <div class="grid-2">
+      <div class="card">
+        <p class="card-eyebrow">Rio de Janeiro · 1945</p>
+        <h3 class="card-name">H.Stern</h3>
+        <span class="badge highlight">Recomendação principal</span>
+        <p class="card-desc">Joalheria carioca globalmente reconhecida. Identidade fortíssima: pedras brasileiras, natureza, design sensual e orgânico. Arthur Casas assinou a boutique de NY. DNA espacial rico e documentado.</p>
+        <p class="card-use">Você pode visitar a sede no Rio. Ideia: boutique no Arpoador — a pedra bruta que vira joia.</p>
+        <a href="https://www.hstern.com.br" target="_blank" class="card-link">hstern.com.br</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">São Paulo · 1962</p>
+        <h3 class="card-name">Vivara</h3>
+        <span class="badge">VM integrado</span>
+        <p class="card-desc">Maior joalheria da América Latina. Identidade contemporânea e em expansão. VM é central na estratégia — ótima integração com sua pós. Lojas no Rio para visitar.</p>
+        <p class="card-use">Flagship Life by Vivara para o Rio: cobogós, luz carioca, área de personalização.</p>
+        <a href="https://www.vivara.com.br" target="_blank" class="card-link">vivara.com.br</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Rio de Janeiro · 1994</p>
+        <h3 class="card-name">Lenny Niemeyer</h3>
+        <span class="badge">Liberdade criativa</span>
+        <p class="card-desc">Moda praia de luxo brasileira com presença internacional. Elegância carioca sem estereótipo. Sem padrão rígido de loja — você cria do zero.</p>
+        <p class="card-use">Flagship em Ipanema: travertino, madeira, a loja como extensão da praia.</p>
+        <a href="https://www.lennyniemeyer.com" target="_blank" class="card-link">lennyniemeyer.com</a>
+      </div>
+    </div>
+
+    <div class="divider-row"><span class="divider-label">Internacionais</span><div class="divider-line"></div></div>
+    <div class="grid-2">
+      <div class="card">
+        <p class="card-eyebrow">Espanha · 1846 · LVMH</p>
+        <h3 class="card-name">Loewe</h3>
+        <span class="badge highlight">Marca do momento em 2025</span>
+        <p class="card-desc">A maison mais antiga em atividade. Couro, artesanato, arte contemporânea — Jonathan Anderson a reinventou. Lojas como galerias: obras de arte integradas ao espaço de venda.</p>
+        <p class="card-use">Boutique no Rio em diálogo com a cena artística carioca. Impressiona muito quem avalia portfólio.</p>
+        <a href="https://www.loewe.com" target="_blank" class="card-link">loewe.com</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Veneza · Itália · 1966</p>
+        <h3 class="card-name">Bottega Veneta</h3>
+        <span class="badge">Quiet luxury</span>
+        <p class="card-desc">Luxo silencioso. O famoso intrecciato, sem logos visíveis. Lojas como ateliês privados — travertino, couro natural, carpetes espessos. Ausência de logo é identidade.</p>
+        <p class="card-use">Sem loja no Rio — espaço para proposta inédita. Projeto demonstra maturidade conceitual.</p>
+        <a href="https://www.bottegaveneta.com" target="_blank" class="card-link">bottegaveneta.com</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Paris · França · 1946 · LVMH</p>
+        <h3 class="card-name">Dior</h3>
+        <span class="badge">Loja no Rio — visitar!</span>
+        <p class="card-desc">Jardin de Granville, toile de jouy, cinza Dior, flores. Alta couture com alma feminina e histórica. Identidade visual poderíssima — fácil criar conceito impactante.</p>
+        <p class="card-use">Única internacional com loja no Rio (Village Mall) — você pode visitar e analisar com olho técnico.</p>
+        <a href="https://www.dior.com" target="_blank" class="card-link">dior.com</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Paris · França · 1945</p>
+        <h3 class="card-name">Celine</h3>
+        <span class="badge">Minimalismo intelectual</span>
+        <p class="card-desc">Linha pura, proporção perfeita, nada supérfluo. Phoebe Philo definiu uma era. Lojas: mármore, aço escovado, madeira escura, luz uniforme. O produto é o protagonista absoluto.</p>
+        <p class="card-use">Projeto que exige perfeição de proporção — demonstra domínio do vocabulário arquitetônico contemporâneo.</p>
+        <a href="https://www.celine.com" target="_blank" class="card-link">celine.com</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Quarona · Itália · 1924 · LVMH</p>
+        <h3 class="card-name">Loro Piana</h3>
+        <span class="badge">Ultra quiet luxury</span>
+        <p class="card-desc">O luxo mais discreto do mundo. Cashmere, vicunha, tecidos raríssimos. Lojas quase residenciais — paleta neutra, materiais táteis, luz suave difusa.</p>
+        <p class="card-use">Minimalismo extremo que exige domínio total do detalhe. Diferente de tudo em portfólios convencionais.</p>
+        <a href="https://www.loropiana.com" target="_blank" class="card-link">loropiana.com</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Roma · Itália · 1884 · LVMH</p>
+        <h3 class="card-name">Bulgari</h3>
+        <span class="badge">Narrativa histórica rica</span>
+        <p class="card-desc">DNA mediterrâneo, mosaicos romanos, gemas vibrantes, serpenti. Maior boutique da América Latina aberta no Cidade Jardim SP.</p>
+        <p class="card-use">Conexão entre azulejos portugueses do Rio e os mosaicos romanos da Bulgari — narrativa conceitual original e poderosa.</p>
+        <a href="https://www.bulgari.com" target="_blank" class="card-link">bulgari.com</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== FEIRAS ====== -->
+  <div class="section" id="feiras">
+    <div class="section-intro">
+      <h2 class="section-title">Feiras &<br><em>Eventos</em></h2>
+      <p class="section-desc">Salve estas datas. Mesmo sem ir presencialmente, a cobertura ao vivo no Dezeen e Wallpaper* é densa e vale muito.</p>
+    </div>
+
+    <div class="grid-auto">
+      <div class="card">
+        <p class="card-eyebrow">Milão, Itália · Abril</p>
+        <h3 class="card-name">Salone del Mobile</h3>
+        <span class="badge highlight">O maior do mundo</span>
+        <p class="card-desc">A feira mais importante do mundo em mobiliário e design de interiores. Todos os grandes fabricantes lançam coleções aqui. Acompanhe ao vivo pelo Wallpaper* e Dezeen em abril.</p>
+        <p class="card-use">Wallpaper* e Dezeen postam em tempo real com análise editorial. Instagram dos fabricantes também.</p>
+        <a href="https://www.salonemilano.it" target="_blank" class="card-link">salonemilano.it</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Paris, França · Janeiro e Setembro</p>
+        <h3 class="card-name">Maison & Objet</h3>
+        <span class="badge">Interiores e tendências</span>
+        <p class="card-desc">Referência em tendências de interiores, objetos decorativos e revestimentos. Abrange do mobiliário ao têxtil ao revestimento.</p>
+        <p class="card-use">Site oficial publica tendências e destaques. Wallpaper* cobre com profundidade editorial.</p>
+        <a href="https://www.maison-objet.com" target="_blank" class="card-link">maison-objet.com</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Bolonha, Itália · Setembro</p>
+        <h3 class="card-name">Cersaie</h3>
+        <span class="badge">Revestimentos</span>
+        <p class="card-desc">A maior feira mundial de revestimentos cerâmicos e de banheiro. Onde os fabricantes italianos lançam coleções que chegam ao Brasil 1–2 anos depois.</p>
+        <p class="card-use">Os fabricantes postam muito no Instagram durante o evento. Archtrends cobre também.</p>
+        <a href="https://www.cersaie.it" target="_blank" class="card-link">cersaie.it</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Nova York, EUA · Janeiro</p>
+        <h3 class="card-name">NRF — Retail's Big Show</h3>
+        <span class="badge">Varejo global</span>
+        <p class="card-desc">O maior evento de varejo do mundo. Tecnologia, experiência do cliente, tendências de espaço físico. Referência para entender para onde vai o retail design.</p>
+        <p class="card-use">Acompanhe os relatórios publicados pelo Inside Retail após o evento.</p>
+        <a href="https://nrfbigshow.nrf.com" target="_blank" class="card-link">nrfbigshow.nrf.com</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">Brasil · Maio e Junho</p>
+        <h3 class="card-name">CASA COR</h3>
+        <span class="badge highlight">Presencial RJ e SP</span>
+        <p class="card-desc">A maior mostra de arquitetura e design do Brasil. Acontece no Rio — oportunidade de ver ao vivo o que os melhores escritórios brasileiros estão especificando.</p>
+        <p class="card-use">Vá com olho de arquiteta de varejo: observe materiais especificados, mobiliários escolhidos, como as marcas de revestimento são aplicadas.</p>
+        <a href="https://casacor.abril.com.br" target="_blank" class="card-link">casacor.abril.com.br</a>
+      </div>
+      <div class="card">
+        <p class="card-eyebrow">São Paulo, Brasil · Outubro</p>
+        <h3 class="card-name">IBEVAR — Fórum de Varejo</h3>
+        <span class="badge">Varejo brasileiro</span>
+        <p class="card-desc">O principal evento de varejo do Brasil. Tendências de mercado, comportamento do consumidor, casos de sucesso em retail. Importante para entender o contexto brasileiro.</p>
+        <p class="card-use">Ótimo para fazer network e entender o que os varejistas brasileiros estão buscando em design e experiência.</p>
+        <a href="https://www.ibevar.org.br" target="_blank" class="card-link">ibevar.org.br</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-text">Dashboard pessoal · Arquitetura de Varejo & Luxo</p>
+    <p class="footer-text" id="footer-date"></p>
+  </footer>
+
+</div>
+
+<script>
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateDate() {
+    const now = new Date();
+    const opts = { weekday: 'long', day: 'numeric', month: 'long' };
+    const str = now.toLocaleDateString('pt-BR', opts);
+    const el = document.getElementById('current-date');
+    const fe = document.getElementById('footer-date');
+    if (el) el.textContent = str.charAt(0).toUpperCase() + str.slice(1);
+    if (fe) fe.textContent = str.charAt(0).toUpperCase() + str.slice(1);
+  }
+  updateDate();
+</script>
+</body>
+</html>
